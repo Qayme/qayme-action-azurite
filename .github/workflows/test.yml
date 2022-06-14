@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Execute action
+        uses: ./
+        
+        
+      # TODO: Use curl to verify azurite is running
