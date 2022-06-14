@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { exec } = require("child_process");
 
-function run() {
+export function run() {
     try {
         // execute bash script
         // `who-to-greet` input defined in action metadata file
@@ -14,13 +14,16 @@ function run() {
         // const payload = JSON.stringify(github.context.payload, undefined, 2)
         // console.log(`The event payload: ${payload}`);
         console.log("Sample action executed!");
+
+        const payload = JSON.stringify(github.context.payload, undefined, 2)
+        console.log(`The event payload: ${payload}`);
     }
     catch (error) {
         core.setFailed(error.message);
     }
 }
 
-function cleanup() {
+export function cleanup() {
     try {
         console.log("Clean up executed!");
     } catch (error) {
