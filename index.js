@@ -17,16 +17,23 @@ async function run() {
 
         const docker = new Docker({socketPath: '/var/run/docker.sock'});
 
-        await docker.run(
-            `mcr.microsoft.com/azure-storage/azurite:${imageTag}`,
-            {
-                "ExposedPorts": {
-                    "10000:10000/tcp": {},
-                    "10001:10001/tcp": {},
-                    "10002:10002/tcp": {},
+        var container = await docker.createContainer({
+            Image: `mcr.microsoft.com/azure-storage/azurite:${imageTag}`,
+            HostConfig: {
+                PortBindings: {
+                  "10000/tcp": [{ HostPort: "10000" }],
+                  "10001/tcp": [{ HostPort: "10001" }],
+                  "10002/tcp": [{ HostPort: "10002" }]
                 }
-            }
-        )
+              },
+              ExposedPorts: {
+                "10000/tcp": {},
+                "10001/tcp": {},
+                "10002/tcp": {}
+              },
+        });
+
+        await container.start();
 
 
 
