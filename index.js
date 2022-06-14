@@ -32,7 +32,7 @@ async function run() {
         //     }
         // }
 
-        var azuriteProcess = child.spawn('./node_modules/.bin/azurite', {
+        var azuriteProcess = child.spawn('./node_modules/.bin/azurite', [], {
             detached: true,
             stdio: 'ignore',
             listeners: {
