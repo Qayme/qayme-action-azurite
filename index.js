@@ -12,9 +12,11 @@ async function run() {
 
         const options = {};
         options.detached = true;
-        
+
         options.listeners = {
             stdout: (data) => {
+                console.log("STDOUT: " + data);
+
                 if (data.contains("Azurite Table service is successfully listening")) {
                     tablesReady = true;
                 }
