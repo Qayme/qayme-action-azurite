@@ -4,7 +4,7 @@ inputs:
   start-timeout:
     description: "Number of seconds to wait for Azurite to start"
     required: false
-    default: "60"
+    default: "30"
   image-tag:
     description: "Docker tag of mcr.microsoft.com/azure-storage/azurite"
     required: false

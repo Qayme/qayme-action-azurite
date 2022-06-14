@@ -20,7 +20,7 @@ async function run() {
                 async () => await isReady(),
                 {
                     timeout: startTimeout,
-                    intervalBetweenAttempts: 2000
+                    intervalBetweenAttempts: 1000
                 });
         }
         catch (ex) {
