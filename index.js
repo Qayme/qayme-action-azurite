@@ -1,40 +1,31 @@
 const core = require('@actions/core');
-const os = require('os');
-const child = require("node:child_process");
-const { waitUntil } = require('async-wait-until/dist/commonjs');
-const { isReady } = require("./healthcheck");
+const exec = require('@actions/exec');
 
-const fs = require('node:fs');
-var path = require('path');
+const { waitUntil } = require('async-wait-until/dist/commonjs');
+const { isReady } = require("./readiness");
 
 async function run() {
     try {
         const startTimeout = parseInt(core.getInput('start-timeout')) * 1000;
+        const imageTag = core.getInput('image-tag');
 
-        const out = fs.openSync('./azurite.log', 'a');
-        const err = fs.openSync('./azurite.log', 'a');
+        const fullImageName = `mcr.microsoft.com/azure-storage/azurite:${imageTag}`
 
-        const azuritePath = path.join(process.cwd(), 'node_modules/azurite/dist/src/azurite.js');
-
-        var azuriteProcess = child.spawn("node", [azuritePath], {
-            cwd: os.tmpdir(),
-            detached: true,
-            stdio: ['ignore', out, err],
-        });
+        // This is to avoid countint the time to pull the image into the start timeout
+        await exec.exec(`docker pull ${fullImageName}`);
+        await exec.exec(`docker run -d -p 10000:10000 -p 10001:10001 -p 10002:10002 --name azurite ${fullImageName} azurite --blobHost 0.0.0.0 --tableHost 0.0.0.0 --queueHost 0.0.0.0`);
 
         try {
             await waitUntil(
-                async () => await isReady(),
+                () => isReady(),
                 {
                     timeout: startTimeout,
-                    intervalBetweenAttempts: 500
+                    intervalBetweenAttempts: 1000
                 });
-
-            azuriteProcess.unref();
         }
         catch (ex) {
-            console.error("Azurite did not get ready in time. Please see the log below:");
-            console.error(fs.readFileSync("./azurite.log", { encoding: 'utf-8' }));
+            console.log("EX");
+            console.log(ex);
 
             core.setFailed("Azurite did not get ready in time.");
         }

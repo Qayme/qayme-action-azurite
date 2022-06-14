@@ -14,18 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-          
-      - name: Setup Node
-        uses: actions/setup-node@v2
 
       - name: "Determine release version and create a git tag"
         uses: docker://ghcr.io/codfish/semantic-release-action:v1.9.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: JasonEtco/build-and-tag-action@v2
-        if: env.RELEASE_VERSION != ''
-        with:
-          tag_name: ${{ env.RELEASE_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
