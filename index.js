@@ -19,11 +19,11 @@ async function run() {
         const image = `mcr.microsoft.com/azure-storage/azurite:${imageTag}`;
 
         console.log("Pull");
-        await docker.pull(image);
+        var img = await docker.pull(image);
 
         console.log("Create");
         var container = await docker.createContainer({
-            Image: image,
+            Image: img.id,
             HostConfig: {
                 PortBindings: {
                   "10000/tcp": [{ HostPort: "10000" }],
