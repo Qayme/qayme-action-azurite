@@ -11,7 +11,8 @@ async function run() {
         var queuesReady = false;
 
         const options = {};
-
+        options.detached = true;
+        
         options.listeners = {
             stdout: (data) => {
                 if (data.contains("Azurite Table service is successfully listening")) {
