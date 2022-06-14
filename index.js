@@ -16,9 +16,12 @@ async function run() {
         const imageTag = core.getInput('image-tag');
 
         const docker = new Docker({socketPath: '/var/run/docker.sock'});
+        const image = `mcr.microsoft.com/azure-storage/azurite:${imageTag}`;
+
+        await docker.pull(image);
 
         var container = await docker.createContainer({
-            Image: `mcr.microsoft.com/azure-storage/azurite:${imageTag}`,
+            Image: image,
             HostConfig: {
                 PortBindings: {
                   "10000/tcp": [{ HostPort: "10000" }],
