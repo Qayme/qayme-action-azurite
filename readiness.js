@@ -17,13 +17,13 @@ const queueClient = QueueServiceClient.fromConnectionString(connectionString, op
 module.exports.isReady = async () => {
     try {
         await blobClient.listContainers().next();
-        console.lot("✔️ Blobs endpoint ready")
+        console.log("✔️ Blobs endpoint ready")
 
         await tableClient.listTables().next();
-        console.lot("✔️ Tables endpoint ready");
+        console.log("✔️ Tables endpoint ready");
 
         await queueClient.listQueues().next();
-        console.lot("✔️ Queues endpoint ready");
+        console.log("✔️ Queues endpoint ready");
 
         return true;
     }
