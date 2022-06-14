@@ -19,7 +19,6 @@ async function run() {
             await waitUntil(
                 async () => {
                     await isReady();
-                    console.log(await getLogs());
                 },
                 {
                     timeout: startTimeout,
@@ -27,31 +26,15 @@ async function run() {
                 });
         }
         catch (ex) {
+            console.log("EX");
+            console.log(ex);
+
             core.setFailed("Azurite did not get ready in time.");
         }
     }
     catch (error) {
         core.setFailed(error.message);
     }
-}
-
-async function getLogs() 
-{
-    var myOutput = "";
-
-    const options = {};
-    options.listeners = {
-    stdout: (data) => {
-        myOutput += data.toString();
-    },
-    stderr: (data) => {
-        myError += data.toString();
-    }
-    };
-
-    await exec.exec("docker", ["logs", "azurite"], options);
-
-    return myOutput;
 }
 
 run();
