@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "TODO: ncc build && npx convert-action"
+    "build": "TODO: ncc build && npx convert-action",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,10 +20,16 @@
   "homepage": "https://github.com/Qayme/qayme-action-azurite#readme",
   "dependencies": {
     "@actions/core": "^1.8.2",
+    "@actions/exec": "^1.1.1",
     "@actions/github": "^5.0.3",
+    "async-wait-until": "^2.0.12",
     "azurite": "^3.17.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0"
+    "@azure/data-tables": "^13.1.2",
+    "@azure/storage-blob": "^12.10.0",
+    "@azure/storage-queue": "^12.9.0",
+    "@vercel/ncc": "^0.34.0",
+    "jest": "^28.1.1"
   }
 }

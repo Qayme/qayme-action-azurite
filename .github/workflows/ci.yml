@@ -13,6 +13,6 @@ jobs:
 
       - name: Execute action
         uses: ./
-        
-        
-      # TODO: Use curl to verify azurite is running
+
+      - name: Run tests against Azurite
+        run: yarn test

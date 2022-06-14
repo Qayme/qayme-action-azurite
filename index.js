@@ -1,20 +1,40 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { exec } = require("child_process");
+const exec = require('@actions/exec');
 
-function run() {
+async function run() {
     try {
-        // execute bash script
-        // `who-to-greet` input defined in action metadata file
-        // const nameToGreet = core.getInput('who-to-greet');
-        // console.log(`Hello ${nameToGreet}!`);
-        // const time = (new Date()).toTimeString();
-        // core.setOutput("time", time);
-        
-        console.log("Sample action executed!");
+        const startTimeout = parseInt(core.getInput('start-timeout'));
 
-        const payload = JSON.stringify(github.context.payload, undefined, 2)
-        console.log(`The event payload: ${payload}`);
+        var tablesReady = false;
+        var blobsReady = false;
+        var queuesReady = false;
+
+        const options = {};
+
+        options.listeners = {
+            stdout: (data) => {
+                if (data.contains("Azurite Table service is successfully listening")) {
+                    tablesReady = true;
+                }
+
+                if (data.contains("Azurite Blob service is successfully listening")) {
+                    blobsReady = true;
+                }
+
+                if (data.contains("Azurite Queue service is successfully listening")) {
+                    queuesReady = true;
+                }
+            }
+        }
+
+        exec.exec('./node_modules/.bin/azurite');
+
+        await waitUntil(
+            () => tablesReady && blobsReady && queuesReady,
+            {
+                timeout: startTimeout
+            });
     }
     catch (error) {
         core.setFailed(error.message);
