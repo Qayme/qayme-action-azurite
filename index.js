@@ -21,10 +21,4 @@ function run() {
     }
 }
 
-function cleanup() {
-    try {
-        console.log("Clean up executed!");
-    } catch (error) {
-        core.warning("clean up failed...")
-    }
-}
+run();
