@@ -13,18 +13,20 @@ async function run() {
 
         // This is to avoid countint the time to pull the image into the start timeout
         await exec.exec(`docker pull ${fullImageName}`);
-        await exec.exec(`docker run -d -p 10000:10000 -p 10001:10001 -p 10002:10002 ${fullImageName}`);
+        await exec.exec(`docker run -d -p 10000:10000 -p 10001:10001 -p 10002:10002 --name azurite ${fullImageName}`);
 
         try {
             await waitUntil(
                 async () => await isReady(),
                 {
                     timeout: startTimeout,
-                    intervalBetweenAttempts: 500
+                    intervalBetweenAttempts: 2000
                 });
         }
         catch (ex) {
             core.setFailed("Azurite did not get ready in time.");
+
+            await exec.exec("docker logs azurite")
         }
     }
     catch (error) {
