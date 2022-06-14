@@ -1,11 +1,12 @@
 const core = require('@actions/core');
+
 const os = require('os');
-const child = require("node:child_process");
+const child = require("child_process");
+const fs = require('fs');
+const path = require('path');
+
 const { waitUntil } = require('async-wait-until/dist/commonjs');
 const { isReady } = require("./healthcheck");
-
-const fs = require('node:fs');
-var path = require('path');
 
 async function run() {
     try {
