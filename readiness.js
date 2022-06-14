@@ -30,6 +30,8 @@ module.exports.isReady = async () => {
     catch (ex) {
         console.log("Azurite is not ready yet, will retry in a few seconds...");
 
+        console.log(ex);
+
         return false;
     }
 }
