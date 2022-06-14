@@ -3,13 +3,16 @@ const { QueueServiceClient } = require("@azure/storage-queue");
 const { TableServiceClient } = require("@azure/data-tables");
 
 const connectionString = "UseDevelopmentStorage=true;"
-const blobClient = BlobServiceClient.fromConnectionString(connectionString, {
-    httpClient: {
-
+const options = {
+    retryOptions: {
+        maxTries: 1,
+        tryTimeoutInMs: 250
     }
-});
-const tableClient = TableServiceClient.fromConnectionString(connectionString);
-const queueClient = QueueServiceClient.fromConnectionString(connectionString);
+};
+
+const blobClient = BlobServiceClient.fromConnectionString(connectionString, options);
+const tableClient = TableServiceClient.fromConnectionString(connectionString, options);
+const queueClient = QueueServiceClient.fromConnectionString(connectionString, options);
 
 module.exports.isReady = async () => {
     try {

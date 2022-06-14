@@ -14,8 +14,6 @@ async function run() {
             stdio: 'ignore',
         });
 
-        azuriteProcess.unref();
-
         await waitUntil(
             async () => await isReady(),
             {
@@ -23,6 +21,7 @@ async function run() {
                 intervalBetweenAttempts: 500
             });
 
+        azuriteProcess.unref();
     }
     catch (error) {
         core.setFailed(error.message);
