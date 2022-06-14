@@ -5,7 +5,7 @@ const { TableServiceClient } = require("@azure/data-tables");
 const connectionString = "UseDevelopmentStorage=true;"
 
 const getRandomName = () => {
-    return (Math.random() + 1).toString(36).substring(7);
+    return "t" + (Math.random() + 1).toString(36).substring(7);
 }
 
 test('Verify blob endpoint is running', async () => {
