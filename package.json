@@ -32,5 +32,19 @@
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",
     "jest": "^28.1.1"
+  },
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "preview",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ]
   }
 }
