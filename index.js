@@ -17,9 +17,7 @@ async function run() {
 
         try {
             await waitUntil(
-                async () => {
-                    await isReady();
-                },
+                async () => await isReady(),
                 {
                     timeout: startTimeout,
                     intervalBetweenAttempts: 2000
