@@ -1,63 +1,26 @@
 const core = require('@actions/core');
-//const exec = require('@actions/exec');
 const child = require("child_process");
 const { waitUntil } = require('async-wait-until/dist/commonjs');
+const { BlobServiceClient } = require("@azure/storage-blob");
+const { QueueServiceClient } = require("@azure/storage-queue");
+const { TableServiceClient } = require("@azure/data-tables");
+
+const connectionString = "UseDevelopmentStorage=true;"
+const blobClient = BlobServiceClient.fromConnectionString(connectionString);
+const tableClient = TableServiceClient.fromConnectionString(connectionString);
+const queueClient = QueueServiceClient.fromConnectionString(connectionString);
 
 async function run() {
     try {
         const startTimeout = parseInt(core.getInput('start-timeout'));
 
-        var tablesReady = false;
-        var blobsReady = false;
-        var queuesReady = false;
-
-        // const options = {};
-        // options.detached = true;
-
-        // options.listeners = {
-        //     stdout: (data) => {
-        //         console.log("STDOUT: " + data);
-
-        //         if (data.contains("Azurite Table service is successfully listening")) {
-        //             tablesReady = true;
-        //         }
-
-        //         if (data.contains("Azurite Blob service is successfully listening")) {
-        //             blobsReady = true;
-        //         }
-
-        //         if (data.contains("Azurite Queue service is successfully listening")) {
-        //             queuesReady = true;
-        //         }
-        //     }
-        // }
-
         var azuriteProcess = child.spawn('./node_modules/.bin/azurite', [], {
             detached: true,
             stdio: 'ignore',
-            listeners: {
-
-            }
-        });
-
-        azuriteProcess.stdout.on('data', (data) => {
-            console.log("STDOUT: " + data);
-
-            if (data.contains("Azurite Table service is successfully listening")) {
-                tablesReady = true;
-            }
-
-            if (data.contains("Azurite Blob service is successfully listening")) {
-                blobsReady = true;
-            }
-
-            if (data.contains("Azurite Queue service is successfully listening")) {
-                queuesReady = true;
-            }
         });
 
         await waitUntil(
-            () => tablesReady && blobsReady && queuesReady,
+            async () => await isReady(),
             {
                 timeout: startTimeout
             });
@@ -66,6 +29,21 @@ async function run() {
     }
     catch (error) {
         core.setFailed(error.message);
+    }
+}
+
+async function isReady() {
+    try
+    {
+        await tableClient.listTables().next();
+        await blobClient.listContainers().next();
+        await queueClient.listQueues().next();
+
+        return true;
+    }
+    catch(ex)
+    {
+        return false;
     }
 }
 
