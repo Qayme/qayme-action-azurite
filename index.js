@@ -19,7 +19,7 @@ async function run() {
             await waitUntil(
                 async () => {
                     await isReady();
-                    console.log(await execCommandWithOutput("docker logs azurite"));
+                    console.log(await getLogs());
                 },
                 {
                     timeout: startTimeout,
@@ -35,7 +35,7 @@ async function run() {
     }
 }
 
-async function execCommandWithOutput(command) 
+async function getLogs() 
 {
     var myOutput = "";
 
@@ -49,7 +49,7 @@ async function execCommandWithOutput(command)
     }
     };
 
-    await exec.exec(command, options);
+    await exec.exec("docker", ["logs", "azurite"], options);
 
     return myOutput;
 }
