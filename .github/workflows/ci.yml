@@ -2,7 +2,7 @@ name: "CI"
 on: [push]
 
 jobs:
-  execute:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
