@@ -15,7 +15,9 @@ async function run() {
         const out = fs.openSync('./azurite.log', 'a');
         const err = fs.openSync('./azurite.log', 'a');
 
-        const azuritePath = path.join(process.cwd(), 'node_modules/azurite/dist/src/azurite.js');
+        const azuritePath = require.resolve('azurite/dist/src/azurite.js');
+
+        // const azuritePath = path.join(process.cwd(), 'node_modules/azurite/dist/src/azurite.js');
 
         var azuriteProcess = child.spawn("node", [azuritePath], {
             cwd: os.tmpdir(),
