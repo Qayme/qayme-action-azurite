@@ -18,8 +18,10 @@ async function run() {
         const docker = new Docker({socketPath: '/var/run/docker.sock'});
         const image = `mcr.microsoft.com/azure-storage/azurite:${imageTag}`;
 
+        console.log("Pull");
         await docker.pull(image);
 
+        console.log("Create");
         var container = await docker.createContainer({
             Image: image,
             HostConfig: {
@@ -36,6 +38,7 @@ async function run() {
               },
         });
 
+        console.log("Start");
         await container.start();
 
 
