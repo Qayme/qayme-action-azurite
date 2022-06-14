@@ -23,7 +23,8 @@
     "@azure/storage-blob": "^12.10.0",
     "@azure/storage-queue": "^12.9.0",
     "async-wait-until": "^2.0.12",
-    "azurite": "^3.17.1"
+    "azurite": "^3.17.1",
+    "dockerode": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^28.1.1"
