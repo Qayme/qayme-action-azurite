@@ -1,0 +1,5 @@
+name: 'Azurite'
+description: 'Starts Azurite (Azure Storage Emulator)'
+runs:
+  using: 'node16'
+  main: 'index.js'
