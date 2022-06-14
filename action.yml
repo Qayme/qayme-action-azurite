@@ -1,0 +1,10 @@
+name: 'Azurite'
+description: 'Starts Azurite (Azure Storage Emulator)'
+inputs:
+  start-timeout:
+    description: "Number of seconds to wait for Azurite to start"
+    required: false
+    default: "15"
+runs:
+  using: 'node16'
+  main: 'index.js'
