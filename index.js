@@ -6,7 +6,7 @@ const { isReady } = require("./healthcheck");
 
 async function run() {
     try {
-        const startTimeout = 30 *1000;//parseInt(core.getInput('start-timeout')) * 1000;
+        const startTimeout = 3000 *1000;//parseInt(core.getInput('start-timeout')) * 1000;
 
         var azuriteProcess = child.spawn("node", ['./node_modules/azurite/dist/src/azurite.js'], {
             cwd: os.tmpdir(),

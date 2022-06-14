@@ -3,7 +3,11 @@ const { QueueServiceClient } = require("@azure/storage-queue");
 const { TableServiceClient } = require("@azure/data-tables");
 
 const connectionString = "UseDevelopmentStorage=true;"
-const blobClient = BlobServiceClient.fromConnectionString(connectionString);
+const blobClient = BlobServiceClient.fromConnectionString(connectionString, {
+    httpClient: {
+
+    }
+});
 const tableClient = TableServiceClient.fromConnectionString(connectionString);
 const queueClient = QueueServiceClient.fromConnectionString(connectionString);
 
