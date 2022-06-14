@@ -17,7 +17,10 @@ async function run() {
 
         try {
             await waitUntil(
-                async () => await isReady(),
+                async () => {
+                    await isReady();
+                    console.log(await execCommandWithOutput("docker logs azurite"));
+                },
                 {
                     timeout: startTimeout,
                     intervalBetweenAttempts: 2000
@@ -25,13 +28,30 @@ async function run() {
         }
         catch (ex) {
             core.setFailed("Azurite did not get ready in time.");
-
-            await exec.exec("docker logs azurite")
         }
     }
     catch (error) {
         core.setFailed(error.message);
     }
+}
+
+async function execCommandWithOutput(command) 
+{
+    var myOutput = "";
+
+    const options = {};
+    options.listeners = {
+    stdout: (data) => {
+        myOutput += data.toString();
+    },
+    stderr: (data) => {
+        myError += data.toString();
+    }
+    };
+
+    await exec.exec(command, options);
+
+    return myOutput;
 }
 
 run();
