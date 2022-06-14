@@ -2,9 +2,8 @@
   "name": "qayme-action-azurite",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "build": "npx @vercel/ncc build && npx convert-action",
     "test": "jest"
   },
   "repository": {
