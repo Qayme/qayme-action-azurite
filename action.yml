@@ -4,7 +4,7 @@ inputs:
   start-timeout:
     description: "Number of seconds to wait for Azurite to start"
     required: false
-    default: "30"
+    default: "15"
 runs:
   using: 'node16'
   main: 'index.js'

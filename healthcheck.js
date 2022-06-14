@@ -6,7 +6,7 @@ const connectionString = "UseDevelopmentStorage=true;"
 const options = {
     retryOptions: {
         maxTries: 1,
-        tryTimeoutInMs: 250
+        tryTimeoutInMs: 250,
     }
 };
 
@@ -18,8 +18,13 @@ module.exports.isReady = async () => {
     try {
         console.log("Checking if ready...");
 
+        console.log("Tables...");
         await tableClient.listTables().next();
+
+        console.log("Blobs...");
         await blobClient.listContainers().next();
+
+        console.log("Queues...");
         await queueClient.listQueues().next();
 
         return true;

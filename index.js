@@ -4,24 +4,40 @@ const child = require("node:child_process");
 const { waitUntil } = require('async-wait-until/dist/commonjs');
 const { isReady } = require("./healthcheck");
 
+const fs = require('node:fs');
+var path = require('path');
+
 async function run() {
     try {
-        const startTimeout = 3000 *1000;//parseInt(core.getInput('start-timeout')) * 1000;
+        const startTimeout = parseInt(core.getInput('start-timeout')) * 1000;
 
-        var azuriteProcess = child.spawn("node", ['./node_modules/azurite/dist/src/azurite.js'], {
+        const out = fs.openSync('./azurite.log', 'a');
+        const err = fs.openSync('./azurite.log', 'a');
+
+        const azuritePath = path.join(process.cwd(), 'node_modules/azurite/dist/src/azurite.js');
+
+        var azuriteProcess = child.spawn("node", [azuritePath], {
             cwd: os.tmpdir(),
             detached: true,
-            stdio: 'ignore',
+            stdio: ['ignore', out, err],
         });
 
-        await waitUntil(
-            async () => await isReady(),
-            {
-                timeout: startTimeout,
-                intervalBetweenAttempts: 500
-            });
+        try {
+            await waitUntil(
+                async () => await isReady(),
+                {
+                    timeout: startTimeout,
+                    intervalBetweenAttempts: 500
+                });
 
-        azuriteProcess.unref();
+            azuriteProcess.unref();
+        }
+        catch (ex) {
+            console.error("Azurite did not get ready in time. Please see the log below:");
+            console.error(fs.readFileSync("./azurite.log", { encoding: 'utf-8' }));
+
+            core.setFailed("Azurite did not get ready in time.");
+        }
     }
     catch (error) {
         core.setFailed(error.message);
