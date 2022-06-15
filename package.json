@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Qayme/qayme-action-azurite#readme",
   "dependencies": {
-    "@actions/core": "^1.8.2",
+    "@actions/core": "^1.9.0",
     "@actions/exec": "^1.1.1",
     "@azure/data-tables": "^13.1.2",
     "@azure/storage-blob": "^12.10.0",
