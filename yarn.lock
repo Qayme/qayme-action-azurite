@@ -84,6 +84,26 @@
     uuid "^8.3.0"
     xml2js "^0.4.19"
 
+"@azure/core-http@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@azure/core-http/-/core-http-3.0.0.tgz#345845f9ba479a5ee41efc3fd7a13e82d2a0ec47"
+  integrity sha512-BxI2SlGFPPz6J1XyZNIVUf0QZLBKFX+ViFjKOkzqD18J1zOINIQ8JSBKKr+i+v8+MB6LacL6Nn/sP/TE13+s2Q==
+  dependencies:
+    "@azure/abort-controller" "^1.0.0"
+    "@azure/core-auth" "^1.3.0"
+    "@azure/core-tracing" "1.0.0-preview.13"
+    "@azure/core-util" "^1.1.1"
+    "@azure/logger" "^1.0.0"
+    "@types/node-fetch" "^2.5.0"
+    "@types/tunnel" "^0.0.3"
+    form-data "^4.0.0"
+    node-fetch "^2.6.7"
+    process "^0.11.10"
+    tslib "^2.2.0"
+    tunnel "^0.0.6"
+    uuid "^8.3.0"
+    xml2js "^0.4.19"
+
 "@azure/core-lro@^2.2.0":
   version "2.2.4"
   resolved "https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.2.4.tgz"
@@ -139,6 +159,14 @@
   dependencies:
     tslib "^2.2.0"
 
+"@azure/core-util@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@azure/core-util/-/core-util-1.1.1.tgz#8f87b3dd468795df0f0849d9f096c3e7b29452c1"
+  integrity sha512-A4TBYVQCtHOigFb2ETiiKFDocBoI1Zk2Ui1KpI42aJSIDexF7DHQFpnjonltXAIU/ceH+1fsZAWWgvX6/AKzog==
+  dependencies:
+    "@azure/abort-controller" "^1.0.0"
+    tslib "^2.2.0"
+
 "@azure/core-xml@^1.0.0":
   version "1.2.1"
   resolved "https://registry.npmjs.org/@azure/core-xml/-/core-xml-1.2.1.tgz"
@@ -183,13 +211,13 @@
     events "^3.0.0"
     tslib "^2.2.0"
 
-"@azure/storage-queue@^12.9.0":
-  version "12.9.0"
-  resolved "https://registry.npmjs.org/@azure/storage-queue/-/storage-queue-12.9.0.tgz"
-  integrity sha512-sPHz+9MYbcOpq2t6oE/Pt2Xj9Z3eHCQLGQD9C7prBPWh/reN5qEOgdMrIHoEj0RU0EuBSDx96vrdFi0kX8rhtA==
+"@azure/storage-queue@^12.12.0":
+  version "12.12.0"
+  resolved "https://registry.yarnpkg.com/@azure/storage-queue/-/storage-queue-12.12.0.tgz#ff68025c9a844dbe0f98e5dc833cd49ee33cbb50"
+  integrity sha512-I3PBS9OKsLmXGvF0f9EymoNKf1kZ2+H9csdkOyxriZBhrK85SklQ3LYsFceIK7N1CTkzk/f695Q6ziryENvtVQ==
   dependencies:
     "@azure/abort-controller" "^1.0.0"
-    "@azure/core-http" "^2.0.0"
+    "@azure/core-http" "^3.0.0"
     "@azure/core-paging" "^1.1.1"
     "@azure/core-tracing" "1.0.0-preview.13"
     "@azure/logger" "^1.0.0"
