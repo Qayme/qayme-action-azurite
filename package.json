@@ -22,7 +22,7 @@
     "@actions/exec": "^1.1.1",
     "@azure/data-tables": "^13.1.2",
     "@azure/storage-blob": "^12.10.0",
-    "@azure/storage-queue": "^12.9.0",
+    "@azure/storage-queue": "^12.13.0",
     "async-wait-until": "^2.0.12"
   },
   "devDependencies": {
